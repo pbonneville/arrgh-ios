@@ -29,3 +29,5 @@ fastlane/test_output
 
 # Code Injection
 *.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+.DS_Store
+*.xcuserstate
