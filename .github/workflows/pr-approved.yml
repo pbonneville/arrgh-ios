@@ -1,0 +1,38 @@
+name: PR Approved Actions
+
+on:
+  pull_request_review:
+    types: [submitted]
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  handle-approval:
+    name: Handle PR Approval & Cleanup
+    uses: pbonneville/arrgh-hub/.github/workflows/reusable-pr-approved.yml@main
+    with:
+      # Auto-merge configuration (disabled for iOS - needs manual testing)
+      enable_auto_merge: false
+      auto_merge_types: 'docs'
+      auto_merge_method: 'squash'
+      
+      # Feature toggles
+      enable_release_notes: true
+      enable_breaking_change_issues: true
+      enable_contributor_thanks: true
+      enable_branch_cleanup: true
+      
+      # Repository-specific paths
+      standards_path: 'https://github.com/pbonneville/arrgh-hub/blob/main/Anthropic/Claude/Global/PR-STANDARDS.md'
+      release_notes_path: '.github/PENDING_RELEASE_NOTES.md'
+      
+      # Branch management
+      feature_branch_patterns: 'feature/*,fix/*,docs/*,chore/*,refactor/*'
+      
+      # Release configuration
+      release_note_types: 'feat,fix,perf'
